@@ -1,3 +1,73 @@
+# Queries used for Tableau Project
+
+
+#1.
+
+Select  
+    SUM(new_cases) as total_cases, SUM(cast(new_deaths as int)) as total_deaths, SUM(cast(new_deaths as int))/SUM(New_Cases)*100 as DeathPercentage
+FROM 
+    `my-data-project0224.PortfolioProject.CovidDeaths`
+WHERE    
+    continent is not null 
+ORDER BY 1,2
+
+
+#2.
+
+SELECT 
+    location, SUM(cast(new_deaths as int)) as TotalDeathCount
+FROM 
+    `my-data-project0224.PortfolioProject.CovidDeaths`
+WHERE
+    continent is null 
+AND
+    location not in ('World', 'European Union', 'International', 'Upper middle income', 'High income', 
+    'Lower middle income', 'Low income')
+GROUP BY
+    location
+ORDER BY
+    TotalDeathCount DESC
+
+
+
+#3. 
+
+Select
+    location, population, MAX(total_cases) as HighestInfectionCount, 
+    Max((total_cases/population))*100 as PercentPopulationInfected
+FROM 
+    `my-data-project0224.PortfolioProject.CovidDeaths`
+GROUP BY 
+    location, population
+ORDER BY 
+    PercentPopulationInfected DESC
+
+
+
+#4.
+
+
+SELECT 
+    location, population,date, MAX(total_cases) as HighestInfectionCount, 
+    Max((total_cases/population))*100 as PercentPopulationInfected
+FROM 
+    `my-data-project0224.PortfolioProject.CovidDeaths`
+
+GROUP BY 
+    location, population, date
+ORDER BY 
+    PercentPopulationInfected DESC
+
+
+
+
+
+/* Below mentioned queries where used by me to run different analysis and to understand the data better */
+
+
+
+
+
 SELECT *
 
 FROM `my-data-project0224.PortfolioProject.CovidDeaths`
